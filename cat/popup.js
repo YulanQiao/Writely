@@ -20,8 +20,8 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // Free trial configuration
     const FREE_TRIAL_LIMIT = 100;
-    const TRIAL_GEMINI_API_KEY = 'AIzaSyCuqN_dykMReR2nzZnpIJJ4dtdGn6f8Xlw'; // Put your valid shared Gemini API key here
-    const TRIAL_GOOGLE_CLOUD_API_KEY = 'AIzaSyCFoeuAuu4j9VcNhmu0DvS2LJHEsYPwEAk'; // Put your valid shared Google Cloud API key here
+    const TRIAL_GEMINI_API_KEY = ''; // Put your valid shared Gemini API key here
+    const TRIAL_GOOGLE_CLOUD_API_KEY = ''; // Put your valid shared Google Cloud API key here
 
     // Default settings
     const defaultSettings = {
