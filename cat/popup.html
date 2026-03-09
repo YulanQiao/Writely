@@ -1,0 +1,339 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Writely Settings</title>
+    <style>
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+            width: 320px;
+            padding: 16px;
+            margin: 0;
+            background-color: #f9f9fb;
+            color: #333;
+        }
+
+        h2 {
+            font-size: 18px;
+            color: #1a1a1a;
+            margin-top: 0;
+            text-align: center;
+            border-bottom: 1px solid #e0e0e0;
+            padding-bottom: 10px;
+            margin-bottom: 20px;
+        }
+
+        .setting-group {
+            margin-bottom: 20px;
+        }
+
+        .setting-group label {
+            display: block;
+            font-weight: 600;
+            margin-bottom: 8px;
+            font-size: 14px;
+        }
+
+        input[type="password"] {
+            width: 100%;
+            padding: 8px;
+            border: 1px solid #ccc;
+            border-radius: 6px;
+            box-sizing: border-box;
+            font-size: 14px;
+        }
+
+        /* 大圆形开关按钮样式 */
+        .power-button-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            margin: 30px 0;
+        }
+
+        .power-button {
+            position: relative;
+            width: 120px;
+            height: 120px;
+            border-radius: 50%;
+            border: none;
+            cursor: pointer;
+            background: linear-gradient(135deg, #ffffff 0%, #f0f8ff 100%);
+            box-shadow: 0 8px 32px rgba(74, 144, 226, 0.3);
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .power-button.active {
+            background: linear-gradient(135deg, #4a90e2 0%, #357abd 100%);
+            box-shadow: 0 0 40px rgba(74, 144, 226, 0.6), 0 8px 32px rgba(74, 144, 226, 0.4);
+            animation: glow 2s ease-in-out infinite alternate;
+        }
+
+        .power-button:hover {
+            transform: scale(1.05);
+            box-shadow: 0 12px 40px rgba(74, 144, 226, 0.4);
+        }
+
+        .power-button.active:hover {
+            box-shadow: 0 0 50px rgba(74, 144, 226, 0.8), 0 12px 40px rgba(74, 144, 226, 0.5);
+        }
+
+        @keyframes glow {
+            from {
+                box-shadow: 0 0 30px rgba(74, 144, 226, 0.4), 0 8px 32px rgba(74, 144, 226, 0.3);
+            }
+            to {
+                box-shadow: 0 0 50px rgba(74, 144, 226, 0.8), 0 8px 32px rgba(74, 144, 226, 0.5);
+            }
+        }
+
+        .power-icon {
+            width: 50px;
+            height: 50px;
+            position: relative;
+        }
+
+        .power-icon::before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 30px;
+            height: 30px;
+            border: 4px solid #4a90e2;
+            border-radius: 50%;
+            border-top: 4px solid transparent;
+        }
+
+        .power-icon::after {
+            content: '';
+            position: absolute;
+            top: 20%;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 4px;
+            height: 20px;
+            background-color: #4a90e2;
+            border-radius: 2px;
+        }
+
+        .power-button.active .power-icon::before {
+            border-color: #ffffff;
+            border-top: 4px solid transparent;
+        }
+
+        .power-button.active .power-icon::after {
+            background-color: #ffffff;
+        }
+
+        .power-status {
+            margin-top: 15px;
+            font-size: 14px;
+            font-weight: 600;
+            text-align: center;
+        }
+
+        .power-status.active {
+            color: #4a90e2;
+        }
+
+        .power-status.inactive {
+            color: #999;
+        }
+
+        /* 免费试用相关样式 */
+        .trial-info {
+            background: linear-gradient(135deg, #e3f2fd 0%, #f3e5f5 100%);
+            border: 1px solid #4a90e2;
+            border-radius: 8px;
+            padding: 12px;
+            margin-bottom: 20px;
+            text-align: center;
+            font-size: 13px;
+        }
+
+        .trial-count {
+            font-weight: 600;
+            color: #4a90e2;
+        }
+
+        .api-keys-section {
+            display: none;
+        }
+
+        .api-keys-section.show {
+            display: block;
+        }
+
+        .switch {
+            position: relative;
+            display: inline-block;
+            width: 44px;
+            height: 24px;
+        }
+
+        .switch input {
+            opacity: 0;
+            width: 0;
+            height: 0;
+        }
+
+        .slider {
+            position: absolute;
+            cursor: pointer;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-color: #ccc;
+            transition: .4s;
+            border-radius: 24px;
+        }
+
+        .slider:before {
+            position: absolute;
+            content: "";
+            height: 20px;
+            width: 20px;
+            left: 2px;
+            bottom: 2px;
+            background-color: white;
+            transition: .4s;
+            border-radius: 50%;
+        }
+
+        input:checked+.slider {
+            background-color: #4CAF50;
+        }
+
+        input:checked+.slider:before {
+            transform: translateX(20px);
+        }
+
+        .switch-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .status {
+            font-size: 12px;
+            margin-top: 10px;
+            text-align: center;
+            color: #4CAF50;
+            height: 15px;
+        }
+    </style>
+</head>
+
+<body>
+    <h2>Writely</h2>
+
+    <!-- Free Trial Information -->
+    <div id="trial-info" class="trial-info">
+        <div>🎉 Free Trial Active</div>
+        <div class="trial-count"><span id="remaining-uses">10</span> free uses remaining</div>
+    </div>
+
+    <!-- API Keys 部分 (默认隐藏) -->
+    <div id="api-keys-section" class="api-keys-section">
+        <div class="setting-group">
+            <label for="geminiApiKey">Gemini API Key</label>
+            <input type="password" id="geminiApiKey" placeholder="For rewrite and tone features">
+            <small style="font-size: 11px; color: #666; margin-top: 4px; display: block;">
+                Get from <a href="https://aistudio.google.com/" target="_blank">Google AI Studio</a>
+            </small>
+        </div>
+
+        <div class="setting-group">
+            <label for="googleCloudApiKey">Google Cloud API Key (Optional)</label>
+            <input type="password" id="googleCloudApiKey" placeholder="For professional translation quality">
+            <small style="font-size: 11px; color: #666; margin-top: 4px; display: block;">
+                Optional: Enable Translation API in <a href="https://console.cloud.google.com/" target="_blank">Google Cloud
+                    Console</a><br>
+                Provides higher quality translation than Gemini API
+            </small>
+        </div>
+    </div>
+
+    <!-- 大圆形开关按钮 -->
+    <div class="power-button-container">
+        <button id="power-button" class="power-button">
+            <div class="power-icon"></div>
+        </button>
+        <div id="power-status" class="power-status inactive">Writely Disabled</div>
+    </div>
+
+    <div class="setting-group" id="translate-settings">
+        <div class="switch-container">
+            <label for="translateAsYouTypeEnabled">Translate-as-you-type</label>
+            <label class="switch">
+                <input type="checkbox" id="translateAsYouTypeEnabled">
+                <span class="slider"></span>
+            </label>
+        </div>
+    </div>
+
+    <div class="setting-group">
+        <div id="language-options" style="margin-top: 12px;">
+            <div style="display: flex; align-items: center; gap: 8px; margin-bottom: 12px;">
+                <div style="flex: 1;">
+                    <label for="sourceLang" style="margin-bottom: 8px; font-size: 12px;">Source</label>
+                    <select id="sourceLang" style="width: 100%; padding: 6px; border: 1px solid #ccc; border-radius: 4px;">
+                        <option value="Auto">Auto Detect</option>
+                        <option value="English">English</option>
+                        <option value="Chinese">Chinese (中文)</option>
+                        <option value="Spanish">Spanish (Español)</option>
+                        <option value="French">French (Français)</option>
+                        <option value="German">German (Deutsch)</option>
+                        <option value="Japanese">Japanese (日本語)</option>
+                    </select>
+                </div>
+                <button id="swapLanguages" style="
+                    background: #007bff; 
+                    color: white; 
+                    border: none; 
+                    border-radius: 50%; 
+                    width: 32px; 
+                    height: 32px; 
+                    cursor: pointer; 
+                    display: flex; 
+                    align-items: center; 
+                    justify-content: center;
+                    font-size: 16px;
+                    margin-top: 20px;
+                " title="Swap languages">⇄</button>
+                <div style="flex: 1;">
+                    <label for="targetLang" style="margin-bottom: 8px; font-size: 12px;">Target</label>
+                    <select id="targetLang" style="width: 100%; padding: 6px; border: 1px solid #ccc; border-radius: 4px;">
+                        <option value="en">English</option>
+                        <option value="zh">Chinese (中文)</option>
+                        <option value="ja">Japanese (日本語)</option>
+                        <option value="ko">Korean (한국어)</option>
+                        <option value="es">Spanish (Español)</option>
+                        <option value="fr">French (Français)</option>
+                        <option value="de">German (Deutsch)</option>
+                        <option value="it">Italian (Italiano)</option>
+                        <option value="pt">Portuguese (Português)</option>
+                        <option value="ru">Russian (Русский)</option>
+                        <option value="ar">Arabic (العربية)</option>
+                    </select>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="status" class="status"></div>
+    <div class="setting-group">
+        <button id="page-translate-btn" style="width: 100%; padding: 10px 12px; border-radius: 8px; border: none; cursor: pointer; background:#4285f4; color:#fff; font-weight:600;">Page Translation</button>
+    </div>
+</body>
+<script src="popup.js"></script>
+
+</html>

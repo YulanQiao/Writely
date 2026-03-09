@@ -1,0 +1,66 @@
+{
+    "manifest_version": 3,
+    "name": "Writely",
+    "version": "3.1",
+    "description": "AI-powered writing assistant for translation, rewriting, and tone adjustment. Write better, faster.",
+    "permissions": [
+        "storage",
+        "activeTab"
+    ],
+    "host_permissions": [
+        "https://generativelanguage.googleapis.com/*",
+        "https://translation.googleapis.com/*",
+        "https://docs.google.com/*"
+    ],
+    "background": {
+        "service_worker": "background.js"
+    },
+    "content_scripts": [
+        {
+            "matches": [
+                "<all_urls>"
+            ],
+            "js": [
+                "content.js"
+            ],
+            "css": [
+                "styles.css"
+            ]
+        }
+    ],
+    "action": {
+        "default_popup": "popup.html",
+        "default_icon": {
+            "14": "icons/icon_14.png",
+            "16": "icons/icon_16.png",
+            "19": "icons/icon_19.png",
+            "32": "icons/icon_32.png",
+            "38": "icons/icon_38.png",
+            "48": "icons/icon_48.png",
+            "64": "icons/icon_64.png",
+            "96": "icons/icon_96.png",
+            "128": "icons/icon_128.png"
+        }
+    },
+    "icons": {
+        "14": "icons/icon_14.png",
+        "16": "icons/icon_16.png",
+        "19": "icons/icon_19.png",
+        "32": "icons/icon_32.png",
+        "38": "icons/icon_38.png",
+        "48": "icons/icon_48.png",
+        "64": "icons/icon_64.png",
+        "96": "icons/icon_96.png",
+        "128": "icons/icon_128.png"
+    },
+    "web_accessible_resources": [
+        {
+            "resources": [
+                "icons/*.png"
+            ],
+            "matches": [
+                "<all_urls>"
+            ]
+        }
+    ]
+}
